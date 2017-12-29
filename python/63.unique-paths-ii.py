@@ -37,7 +37,7 @@ class Solution(object):
         :type obstacleGrid: List[List[int]]
         :rtype: int
         """
-        if 0 == obstacleGrid[0][0]:
+        if 1 == obstacleGrid[0][0]:
             return 0
 
         dp = [1 for _ in xrange(len(obstacleGrid[0]))]
@@ -54,4 +54,4 @@ class Solution(object):
                     dp[y] = 0
                 else:
                     dp[y] = dp[y] + dp[y - 1]
-        return dp[len(obstacleGrid[0])]
+        return dp[-1]

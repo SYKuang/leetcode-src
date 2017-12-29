@@ -39,6 +39,7 @@ class Solution(object):
         ret = ""
         table = [i for i in xrange(1, n + 1)]
         f = [1 for _ in xrange(0, n + 1)]
+        # Calculate n! and save to array.
         for i in xrange(1, n + 1):
             f[i] = f[i - 1] * i
         k = k - 1
