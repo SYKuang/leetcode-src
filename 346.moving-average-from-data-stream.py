@@ -31,9 +31,8 @@ class MovingAverage(object):
         Initialize your data structure here.
         :type size: int
         """
-        self.count = 0
         self.size = size
-        self.data = []
+        self.data = collections.deque()
         self.ans = 0
 
     def next(self, val):
@@ -41,17 +40,11 @@ class MovingAverage(object):
         :type val: int
         :rtype: float
         """
-        if self.count < self.size:
-            self.ans *= self.count
-            self.data.append(val)
-        else:
-            self.ans *= self.size
-            self.ans -= self.data[self.count % self.size]
-            self.data[self.count % self.size] = val
-        self.count += 1
+        self.data.append(val)
+        if len(self.data) > self.size:
+            self.ans -= self.data.popleft()
         self.ans += val
-        self.ans /= float(len(self.data))
-        return self.ans
+        return self.ans*1.0/len(self.data)
 
 
 # Your MovingAverage object will be instantiated and called as such:
