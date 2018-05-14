@@ -94,7 +94,7 @@ class Solution(object):
         size = len(org)
         indegree = [0] * (size + 1)
         subset = [set() for _ in xrange(size + 1)]
-        count = 0
+        count = 0 # To check if seqs is []
         for seq in seqs:
             if len(seq) == 0:
                 continue
