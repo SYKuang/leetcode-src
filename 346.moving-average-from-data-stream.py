@@ -34,6 +34,7 @@ class MovingAverage(object):
         self.count = 0
         self.size = size
         self.data = []
+        self.ans = 0
 
     def next(self, val):
         """
@@ -41,11 +42,16 @@ class MovingAverage(object):
         :rtype: float
         """
         if self.count < self.size:
+            self.ans *= self.count
             self.data.append(val)
         else:
+            self.ans *= self.size
+            self.ans -= self.data[self.count % self.size]
             self.data[self.count % self.size] = val
         self.count += 1
-        return sum(self.data)/float(len(self.data))
+        self.ans += val
+        self.ans /= float(len(self.data))
+        return self.ans
 
 
 # Your MovingAverage object will be instantiated and called as such:
