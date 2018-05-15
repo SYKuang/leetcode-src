@@ -57,7 +57,7 @@ class PhoneDirectory(object):
         @param maxNumbers - The maximum numbers that can be stored in the phone directory.
         :type maxNumbers: int
         """
-        self.pool = collections.deque(range(maxNumbers))
+        self.pool = set(range(maxNumbers))
 
     def get(self):
         """
@@ -67,7 +67,7 @@ class PhoneDirectory(object):
         """
         if not self.pool:
             return -1
-        return self.pool.popleft()
+        return self.pool.pop()
 
     def check(self, number):
         """
@@ -83,8 +83,7 @@ class PhoneDirectory(object):
         :type number: int
         :rtype: void
         """
-        if number not in self.pool:
-            self.pool.append(number)
+        self.pool.add(number)
 
 
 # Your PhoneDirectory object will be instantiated and called as such:
