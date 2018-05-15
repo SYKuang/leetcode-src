@@ -65,9 +65,7 @@ class PhoneDirectory(object):
         @return - Return an available number. Return -1 if none is available.
         :rtype: int
         """
-        if not self.pool:
-            return -1
-        return self.pool.pop()
+        return self.pool.pop() if self.pool else -1
 
     def check(self, number):
         """
