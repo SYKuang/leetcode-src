@@ -35,19 +35,19 @@ class Solution(object):
         if l < 2:
             return 0
         ret = 0
-        left=0
-        right=l-1
-        while left<right:
-            h=min(height[left],height[right])
-            if height[left]==h:
-                left+=1
-                while left<right and height[left]<h:
-                    ret+=h-height[left]
-                    left+=1
+        left = 0
+        right = l-1
+        while left < right:
+            h = min(height[left], height[right])
+            if height[left] == h:
+                left += 1
+                while left < right and height[left] < h:
+                    ret += h-height[left]
+                    left += 1
             else:
-                right-=1
-                while left<right and height[right]<h:
-                    ret+=h-height[right]
-                    right-=1
+                right -= 1
+                while left < right and height[right] < h:
+                    ret += h-height[right]
+                    right -= 1
 
         return ret
