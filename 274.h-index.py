@@ -47,7 +47,6 @@ class Solution(object):
         ret=0
         for i in xrange(n):
            h=n-i
-           # print h,citations[i],i
            if citations[i]>=h and i<=n-h:
                ret=h
                break
