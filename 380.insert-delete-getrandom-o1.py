@@ -87,9 +87,7 @@ class RandomizedSet(object):
         :rtype: int
         """
         a = list(self.data)
-        i = random.randrange(0, len(a))
-        return a[i]
-
+        return random.choice(a)
 
 # Your RandomizedSet object will be instantiated and called as such:
 # obj = RandomizedSet()
