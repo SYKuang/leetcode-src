@@ -57,7 +57,8 @@ class RandomizedSet(object):
         """
         Initialize your data structure here.
         """
-        self.data = set()
+        self.data = []
+        self.table = {}
 
     def insert(self, val):
         """
@@ -65,9 +66,10 @@ class RandomizedSet(object):
         :type val: int
         :rtype: bool
         """
-        if val in self.data:
+        if val in self.table:
             return False
-        self.data.add(val)
+        self.table[val] = len(self.data)
+        self.data.append(val)
         return True
 
     def remove(self, val):
@@ -76,9 +78,16 @@ class RandomizedSet(object):
         :type val: int
         :rtype: bool
         """
-        if val not in self.data:
+        if val not in self.table:
             return False
-        self.data.remove(val)
+        if self.table[val] == len(self.data) - 1:
+            self.data.pop()
+        else:
+            t = self.data.pop()
+            i = self.table[val]
+            self.table[t] = i
+            self.data[i] = t
+        del self.table[val]
         return True
 
     def getRandom(self):
