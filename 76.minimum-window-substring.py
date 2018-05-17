@@ -50,18 +50,24 @@ class Solution(object):
         count = 0
         ret = ""
         while right < ls:
+            # 1. Enlarge Window if current element in target.
             if table[s[right]] > 0:
                 count += 1
+
+            # 2. According to count or other condition to determine if it's fit
+            # target or not
             if count == lt:
                 while left < right and table[s[left]] < 0:
                     table[s[left]] += 1
                     left += 1
                 ret = s[left:right+1]
             table[s[right]] -= 1
+            right += 1
+
+            # 3. As long as there is a possible solution, decrease the windows.
             if ret != "":
                 if table[s[left]] >= 0:
                     count -= 1
                 table[s[left]] += 1
                 left += 1
-            right += 1
         return ret
