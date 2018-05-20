@@ -56,6 +56,25 @@ class Solution(object):
         :rtype: int
         """
         self.ret = 0
+        pathTable = collections.defaultdict(int)
+        pathTable[0] = 1
+
+        def helper(root, pathSum, target):
+            if not root:
+                return
+            pathSum += root.val
+            if pathTable[(pathSum - target)] != 0:
+                self.ret += pathTable[(pathSum - target)]
+            pathTable[pathSum] += 1
+            helper(root.left, pathSum, target)
+            helper(root.right, pathSum, target)
+            pathTable[pathSum] -= 1
+        helper(root, 0, sum)
+        return self.ret
+
+
+""" Beats 50%
+        self.ret = 0
         self.helper(root, sum, [])
         return self.ret
 
@@ -75,3 +94,4 @@ class Solution(object):
         for i in xrange(len(parents)):
             parents[i] -= root.val
         return
+"""
