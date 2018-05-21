@@ -68,6 +68,8 @@ class Solution(object):
             return True
         if stones[1] != 1:
             return False
+        if stones[-1] > (len(stones) * (len(stones) - 1) / 2):
+            return False
         table = {}
         for i, s in enumerate(stones):
             table[s] = i
