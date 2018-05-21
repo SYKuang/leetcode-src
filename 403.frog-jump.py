@@ -64,11 +64,25 @@ class Solution(object):
         :type stones: List[int]
         :rtype: bool
         """
+        def helper(current, k):
+            if current == stones[-1]:
+                return True
+            for i in (k+1, k, k-1):
+                if current+i > current and current+i in stones:
+                    if helper(current+i, i):
+                        return True
+            return False
+        if stones[1]!=1:
+            return False
+        if stones[-1] > (len(stones) * (len(stones) - 1) / 2):
+                        return False
+        return helper(1, 1)
+
+
+""" Beat 60%
         if len(stones) < 2:
             return True
         if stones[1] != 1:
-            return False
-        if stones[-1] > (len(stones) * (len(stones) - 1) / 2):
             return False
         table = {}
         for i, s in enumerate(stones):
@@ -86,3 +100,4 @@ class Solution(object):
                     jump[i].append(dist)
                     dp[i] = max(dp[i], dist)
         return dp[-1] != 0
+"""
