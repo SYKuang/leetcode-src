@@ -39,16 +39,16 @@ class Solution(object):
         :type nums: List[int]
         :rtype: int
         """
+        #O(nlogn) Robinson-Schensted-Knuth Algorithm
         if len(nums) == 0:
             return 0
         dp = [nums[0]]
 
-        for i in xrange(1, len(nums)):
-            if nums[i] > dp[-1]:
-                dp.append(nums[i])
+        for n in nums[1:]:
+            if n > dp[-1]:
+                dp.append(n)
             else:
-                j = bisect.bisect_left(dp, nums[i])
-                dp[j] = nums[i]
+                dp[bisect.bisect_left(dp, n)] = n
         return len(dp)
 
         """ O(n^2)
