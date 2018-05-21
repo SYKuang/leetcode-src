@@ -72,10 +72,12 @@ class Solution(object):
                     if helper(current+i, i):
                         return True
             return False
-        if stones[1]!=1:
+        if stones[1] != 1:
             return False
+        # maximum move distance is
+        # 1+2+...+len(stones)-1=((1+len(stones)-1)*len(stones))/2
         if stones[-1] > (len(stones) * (len(stones) - 1) / 2):
-                        return False
+            return False
         return helper(1, 1)
 
 
