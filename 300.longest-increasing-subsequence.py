@@ -41,6 +41,19 @@ class Solution(object):
         """
         if len(nums) == 0:
             return 0
+        dp = [nums[0]]
+
+        for i in xrange(1, len(nums)):
+            if nums[i] > dp[-1]:
+                dp.append(nums[i])
+            else:
+                j = bisect.bisect_left(dp, nums[i])
+                dp[j] = nums[i]
+        return len(dp)
+
+        """ O(n^2)
+        if len(nums) == 0:
+            return 0
         dp = [1]*len(nums)
         ret = 1
         for i in xrange(1, len(nums)):
@@ -48,3 +61,4 @@ class Solution(object):
                 if nums[i] > nums[j]:
                     dp[i] = max(dp[i], dp[j]+1)
         return max(dp)
+        """
