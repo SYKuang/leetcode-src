@@ -40,7 +40,6 @@ class Solution(object):
             return 0
         n = len(M[0])
         dp = [[[0]*n for _ in xrange(m)] for _ in xrange(4)]
-        ret = 0
         for y in xrange(n):
             for x in xrange(m-1, -1, -1):
                 if M[x][y] != 0:
@@ -50,8 +49,7 @@ class Solution(object):
                         else:
                             r = 0
                         dp[i][x][y] = 1+r
-                        ret = max(ret, 1+r)
-        return ret
+        return max([dp[i][x][y] for i in xrange(4) for x in xrange(m) for y in xrange(n)] or [0])
 
 
 """ Beats 0%...
