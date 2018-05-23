@@ -35,13 +35,32 @@ class Solution(object):
         :type M: List[List[int]]
         :rtype: int
         """
+        m = len(M)
+        if not m:
+            return 0
+        n = len(M[0])
+        dp = [[[0]*n for _ in xrange(m)] for _ in xrange(4)]
+        for y in xrange(n):
+            for x in xrange(m-1, -1, -1):
+                if M[x][y] != 0:
+                    for i, (nx, ny) in enumerate([(x+1, y), (x, y-1), (x-1, y-1), (x+1, y-1)]):
+                        if 0 <= nx < m and 0 <= ny < n:
+                            r = dp[i][nx][ny]
+                        else:
+                            r = 0
+                        dp[i][x][y] = 1+r
+        return max([dp[i][x][y] for i in xrange(4) for x in xrange(m) for y in xrange(n)] or [0])
+
+
+""" Beats 0%...
+    def longestLine(self, M):
         self.m = len(M)
         if not self.m:
             return 0
         self.n = len(M[0])
         ret = 0
-        self.table={}
-        self.M=M
+        self.table = {}
+        self.M = M
         for x in xrange(self.m):
             for y in xrange(self.n):
                 for direct in ((1, 0), (0, 1), (1, 1), (-1, 1)):
@@ -57,3 +76,4 @@ class Solution(object):
         ret = 1+self.getLen(direct, x+dx, y+dy)
         self.table[(dx, dy, x, y)] = ret
         return ret
+"""
