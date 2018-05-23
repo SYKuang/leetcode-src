@@ -55,6 +55,7 @@ class Solution(object):
             else:
                 return dp[n-1]
         for i in xrange(2, n):
-            dp[2] = (k-1)*(dp[0]+dp[1])
+            dp[2] = (k-1)*dp[0]  # Different with first fence
+            dp[2] += (k-1)*dp[1]  # Differetn with second fence
             dp[0], dp[1] = dp[1], dp[2]
         return dp[2]
