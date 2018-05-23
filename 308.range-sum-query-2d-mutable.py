@@ -83,7 +83,6 @@ class NumMatrix(object):
         """
         ret = 0
         for r in xrange(row1, min(row2+1, self.m)):
-            print r
             ret += self.row[r][col2]
             ret -= self.row[r][col1-1] if col1 != 0 else 0
         return ret
