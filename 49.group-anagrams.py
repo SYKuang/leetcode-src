@@ -40,12 +40,6 @@ class Solution(object):
         """
         table = collections.defaultdict(list)
         for s in strs:
-            count = collections.defaultdict(int)
-            for c in s:
-                count[c] += 1
-            skey = ""
-            for k in sorted(count.keys()):
-                c = count[k]
-                skey += str(c) + k
+            skey="".join(sorted(s))
             table[skey].append(s)
         return table.values()
