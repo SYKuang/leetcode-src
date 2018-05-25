@@ -66,6 +66,22 @@ class Solution(object):
         :type k: int
         :rtype: List[List[int]]
         """
+        idx = [0]*len(nums1)
+        ret = []
+        l = min(k, len(nums1)*len(nums2))
+        for _ in xrange(l):
+            cur = 0
+            total = sys.maxint
+            for i in xrange(len(nums1)):
+                if idx[i] < len(nums2) and nums1[i]+nums2[idx[i]] <= total:
+                    cur = i
+                    total = nums1[i]+nums2[idx[i]]
+            ret.append([nums1[cur], nums2[idx[cur]]])
+            idx[cur] += 1
+        return ret
+
+
+""" Beats 0%
         q = []
         for i in xrange(min(len(nums1), k)):
             for j in xrange(min(len(nums2), k)):
@@ -77,3 +93,4 @@ class Solution(object):
             _, n1, n2 = heapq.heappop(q)
             ret.append([n1, n2])
         return ret[::-1]
+"""
