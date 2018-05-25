@@ -62,26 +62,14 @@ class Solution(object):
         :type root: TreeNode
         :rtype: int
         """
-        self.mem = {}
-        ret = max(self.helper(root, False), self.helper(root, True))
+        ret = max(self.helper(root))
         return ret
 
-    def helper(self, root, rob):
+    def helper(self, root):
         if not root:
-            return 0
-        if (root, rob) in self.mem:
-            return self.mem[(root, rob)]
-        if not root.left and not root.right:
-            if rob:
-                return 0
-            else:
-                return root.val
-        if rob:
-            ret = self.helper(root.left, False)+self.helper(root.right, False)
-        else:
-            retRob = self.helper(root.left, True)+self.helper(root.right, True)
-            retNRob = self.helper(root.left, False) + \
-                self.helper(root.right, False)
-            ret = max(root.val+retRob, retNRob)
-        self.mem[(root, rob)] = ret
-        return ret
+            return [0, 0]
+        robLeft = self.helper(root.left)
+        robRight = self.helper(root.right)
+        nRob = robLeft[0]+robRight[0]
+        Rob = robLeft[1]+robRight[1]+root.val
+        return [max(nRob, Rob), nRob]
