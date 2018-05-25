@@ -74,9 +74,10 @@ class Solution(object):
             if parent[v] == 0:
                 parent[v] = u
             else:
+                # Exist a point which has indegree equals 2
                 first = [parent[v], v]
                 second = [u, v]
-                edges[i][1] = 0  # Break Link
+                edges[i][1] = 0  # Break edge
         for i in xrange(1, len(edges)+1):
             parent[i] = i
         for u, v in edges:
@@ -84,10 +85,13 @@ class Solution(object):
                 continue
             p1 = find(u)
             p2 = find(v)
+            # Exist Cycle
             if p1 == p2:
-                if first:
+                if first:  # Exist cycle and a point has indegree equals 2
                     return first
-                else:
+                else:  # Exist cycle but not point has indegree equals 2
                     return [u, v]
             parent[p2] = p1
+        # After remove edge, there is no cycle. return the edge which will make
+        # indegre equals 2
         return second
