@@ -65,6 +65,13 @@ class Solution(object):
         ret = max(self.helper(root))
         return ret
 
+    ##
+    # @brief get maximum number if we rob current house and we don't rob the
+    # house
+    #
+    # @param root
+    #
+    # @return [total if we rob, total if we don't rob]
     def helper(self, root):
         if not root:
             return [0, 0]
