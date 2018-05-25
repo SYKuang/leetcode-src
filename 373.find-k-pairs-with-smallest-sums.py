@@ -66,6 +66,23 @@ class Solution(object):
         :type k: int
         :rtype: List[List[int]]
         """
+        q = []
+
+        def push(i, j):
+            if i < len(nums1) and j < len(nums2):
+                heapq.heappush(q, (nums1[i]+nums2[j], i, j))
+        push(0, 0)
+        ret = []
+        while q and len(ret) < k:
+            _, i, j = heapq.heappop(q)
+            ret.append([nums1[i], nums2[j]])
+            push(i, j+1)
+            if j == 0:
+                push(i+1, j)
+        return ret
+
+
+""" beats 17%
         idx = [0]*len(nums1)
         ret = []
         l = min(k, len(nums1)*len(nums2))
@@ -79,7 +96,7 @@ class Solution(object):
             ret.append([nums1[cur], nums2[idx[cur]]])
             idx[cur] += 1
         return ret
-
+"""
 
 """ Beats 0%
         q = []
