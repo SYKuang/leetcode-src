@@ -4,9 +4,9 @@
 # https://leetcode.com/problems/find-median-from-data-stream/description/
 #
 # algorithms
-# Hard (29.90%)
-# Total Accepted:    61.4K
-# Total Submissions: 205K
+# Hard (30.02%)
+# Total Accepted:    62K
+# Total Submissions: 206.4K
 # Testcase Example:  '["MedianFinder","addNum","addNum","findMedian","addNum","findMedian"]\n[[],[1],[2],[],[3],[]]'
 #
 # Median is the middle value in an ordered integer list. If the size of the
@@ -45,25 +45,27 @@ class MedianFinder(object):
         """
         initialize your data structure here.
         """
-        self.small = []
-        self.large = []
+        self.right = []
+        self.left = []
 
     def addNum(self, num):
         """
         :type num: int
         :rtype: void
         """
-        heapq.heappush(self.small, -num)
-        heapq.heappush(self.large, -heapq.heappop(self.small))
-        if len(self.small) < len(self.large):
-            heapq.heappush(self.small, -heapq.heappop(self.large))
+        heapq.heappush(self.left, -num)
+        heapq.heappush(self.right, -heapq.heappop(self.left))
+        if len(self.left) < len(self.right):
+            heapq.heappush(self.left, -heapq.heappop(self.right))
 
     def findMedian(self):
         """
         :rtype: float
         """
-        return (-self.small[0] + self.large[0]) * 1. / 2 if len(self.small) == len(self.large) else -self.small[0] * 1.
-
+        if len(self.left) > len(self.right) :
+            return -self.left[0]*1.
+        else:
+            return (-self.left[0]+self.right[0])/2.0
 
 # Your MedianFinder object will be instantiated and called as such:
 # obj = MedianFinder()
