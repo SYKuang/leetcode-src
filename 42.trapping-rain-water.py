@@ -31,6 +31,33 @@ class Solution(object):
         :type height: List[int]
         :rtype: int
         """
+        if not height:
+            return 0
+        left = [0]
+        leftHeight = height[0]
+        for i in xrange(1, len(height)):
+            left.append(leftHeight)
+            leftHeight = max(leftHeight, height[i])
+        right = [0]*len(height)
+        rightHeight = height[-1]
+        for i in xrange(len(height)-2, 0, -1):
+            right[i] = rightHeight
+            rightHeight = max(rightHeight, height[i])
+        ret = 0
+        for i in xrange(1, len(height)-1):
+            h = min(left[i], right[i])
+            if height[i] < h:
+                ret += h-height[i]
+        return ret
+
+
+class Solution2(object):
+    def trap(self, height):
+        """
+        :type height: List[int]
+        :rtype: int
+        """
+
         l = len(height)
         if l < 2:
             return 0
