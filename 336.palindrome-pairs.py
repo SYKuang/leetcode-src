@@ -37,6 +37,29 @@ def isPalindrom(word):
     return True if word == word[::-1] else False
 
 
+class Solution(object):
+    def palindromePairs(self, words):
+        """
+        :type words: List[str]
+        :rtype: List[List[int]]
+        """
+        dicts = {}
+        for i, w in enumerate(words):
+            dicts[w[::-1]] = i
+        ret = []
+        for i, w in enumerate(words):
+            for j in xrange(len(w)+1):
+                l = w[:j]
+                r = w[j:]
+                if l in dicts and dicts[l] != i and isPalindrom(r):
+                    ret.append([i, dicts[l]])
+                if j > 0 and r in dicts and dicts[r] != i and isPalindrom(l):
+                    ret.append([dicts[r], i])
+        return ret
+
+# Trie
+
+
 class Node(object):
     def __init__(self):
         self.index = []
@@ -60,7 +83,7 @@ class Trie(object):
         node.index.append(index)
 
 
-class Solution(object):
+class Solution2(object):
     def palindromePairs(self, words):
         """
         :type words: List[str]
@@ -73,14 +96,14 @@ class Solution(object):
         ret = []
         for i, word in enumerate(words):
             root = tree.root
-            find=True
-            for j,c in enumerate(word):
+            find = True
+            for j, c in enumerate(word):
                 if isPalindrom(word[j:]) and root.val != -1 and root.val != i:
                     ret.append([i, root.val])
                 if c in root.child:
                     root = root.child[c]
                 else:
-                    find=False
+                    find = False
                     break
             if find:
                 for index in root.index:
