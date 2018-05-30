@@ -4,9 +4,9 @@
 # https://leetcode.com/problems/next-permutation/description/
 #
 # algorithms
-# Medium (29.12%)
-# Total Accepted:    153.8K
-# Total Submissions: 528.2K
+# Medium (29.10%)
+# Total Accepted:    154.6K
+# Total Submissions: 531.2K
 # Testcase Example:  '[1,2,3]'
 #
 # Implement next permutation, which rearranges numbers into the
@@ -33,19 +33,18 @@ class Solution(object):
         :type nums: List[int]
         :rtype: void Do not return anything, modify nums in-place instead.
         """
-        l=len(nums)
-        i=l-2
-        # Find first increasing order number
-        while i>=0 and nums[i]>=nums[i+1]:
-            i-=1
-        if i<0:
+        i = len(nums)-2
+        while i >= 0:
+            if nums[i] < nums[i+1]:
+                break
+            i -= 1
+        if i == -1:
             nums[:]=nums[::-1]
         else:
-            j=i+1
-            # Find last decreasing order number
-            while j<l and nums[j]>nums[i]:
-                j+=1
-            j-=1
-            # Swap i,j
-            nums[i],nums[j]=nums[j],nums[i]
-            nums[i+1:]=sorted(nums[i+1:])
+            j = i+1
+            for k in xrange(j, len(nums)):
+                if nums[k] > nums[i] and nums[k] <= nums[j]:
+                    j = k
+            nums[i], nums[j] = nums[j], nums[i]
+            k=len(nums)
+            nums[i+1:] = nums[:i:-1]
