@@ -55,12 +55,12 @@ class Solution(object):
         den = abs(den)
         res = "-" if negtive else ""
         res += str(num//den)
-        frac = ""
-        table = {}
-        i = 0
         num = num % den
         if num:
+            table = {}
+            i = 0
             table[num] = i
+            frac = ""
             while num:
                 num *= 10
                 frac += str(num/den)
@@ -70,4 +70,5 @@ class Solution(object):
                     break
                 i += 1
                 table[num] = i
-        return res+"."+frac if frac else res
+            res+="."+frac if frac else res
+        return res
