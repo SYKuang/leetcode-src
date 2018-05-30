@@ -47,13 +47,11 @@ class Solution(object):
         """
         num = numerator
         den = denominator
+        res = ""
         if num*den < 0:
-            negtive = True
-        else:
-            negtive = False
+            res += "-"
         num = abs(num)
         den = abs(den)
-        res = "-" if negtive else ""
         res += str(num//den)
         num = num % den
         if num:
@@ -70,5 +68,5 @@ class Solution(object):
                     break
                 i += 1
                 table[num] = i
-            res+="."+frac if frac else res
+            res += "."+frac if frac else res
         return res
