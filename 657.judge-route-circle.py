@@ -44,15 +44,4 @@ class Solution(object):
         :type moves: str
         :rtype: bool
         """
-        vert = 0
-        hor = 0
-        for m in moves:
-            if m == "R":
-                vert += 1
-            elif m == "L":
-                vert -= 1
-            elif m == "D":
-                hor += 1
-            else:
-                hor -= 1
-        return hor == 0 and vert == 0
+        return moves.count("U") == moves.count("D") and moves.count("L") == moves.count("R")
