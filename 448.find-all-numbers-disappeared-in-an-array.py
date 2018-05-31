@@ -35,8 +35,9 @@ class Solution(object):
         :type nums: List[int]
         :rtype: List[int]
         """
-        s = set(nums)
-        return [i for i in xrange(1, len(nums)+1) if i not in s]
+        l = len(nums)
+        nums = set(nums)
+        return [i for i in xrange(1, l+1) if i not in nums]
         # l = len(nums)
         # i = 0
         # while i < l:
