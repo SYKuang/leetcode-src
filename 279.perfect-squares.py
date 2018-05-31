@@ -28,8 +28,30 @@
 #
 #
 
+# Uisng Lagrange's four-square theorem
+
 
 class Solution(object):
+    def numSquares(self, n):
+        """
+        :type n: int
+        :rtype: int
+        """
+        while n % 4 == 0:
+            n /= 4
+        if n % 8 == 7:
+            return 4
+        a = 0
+        while a**2 < n:
+            b = int(math.sqrt(n-a**2))
+            if a**2+b**2 == n:
+                return int(not not a) + int(not not b)
+            a += 1
+        return 3
+# Using DP
+
+
+class Solution2(object):
     def numSquares(self, n):
         """
         :type n: int
