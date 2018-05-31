@@ -38,14 +38,13 @@ class Solution(object):
         :type n: int
         :rtype: bool
         """
-        s=set()
+        s = set()
         while True:
             s.add(n)
             nextN = 0
             while n:
                 nextN += (n % 10)**2
                 n = n//10
-            # print nextN
             if nextN == 1:
                 return True
             elif nextN in s:
