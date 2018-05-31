@@ -56,31 +56,15 @@ class Solution(object):
         :type n: int
         :rtype: str
         """
-        if n == 1:
-            return "1"
-        '''
-        Recursive version
-        pre = self.countAndSay(n-1)+"*"
-        ret = ""
-        count = 1
-        for a, b in zip(pre[:-1], pre[1:]):
-            if a == b:
-                count += 1
-            else:
-                ret += str(count)+a
-                count = 1
-        return ret
-        '''
-        ret = "1"
+        res = "1"
         for _ in xrange(1, n):
-            new = ""
-            ret += "*"
+            newRes = ""
             count = 1
-            for a, b in zip(ret[:-1], ret[1:]):
-                if a == b:
+            for c1, c2 in zip(res, res[1:]+" "):
+                if c2 == c1:
                     count += 1
                 else:
-                    new += str(count)+a
+                    newRes += str(count)+c1
                     count = 1
-            ret = new
-        return ret
+            res = newRes
+        return res
