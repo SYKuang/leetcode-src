@@ -35,15 +35,17 @@ class Solution(object):
         :type nums: List[int]
         :rtype: List[int]
         """
-        l = len(nums)
-        i = 0
-        while i < l:
-            if nums[i] != i+1 and nums[i] != nums[nums[i]-1]:
-                nums[nums[i]-1], nums[i] = nums[i], nums[nums[i]-1]
-            else:
-                i += 1
-        res = []
-        for i, n in enumerate(nums):
-            if n != i+1:
-                res.append(i+1)
-        return res
+        s = set(nums)
+        return [i for i in xrange(1, len(nums)+1) if i not in s]
+        # l = len(nums)
+        # i = 0
+        # while i < l:
+        # if nums[i] != i+1 and nums[i] != nums[nums[i]-1]:
+        # nums[nums[i]-1], nums[i] = nums[i], nums[nums[i]-1]
+        # else:
+        # i += 1
+        # res = []
+        # for i, n in enumerate(nums):
+        # if n != i+1:
+        # res.append(i+1)
+        # return res
