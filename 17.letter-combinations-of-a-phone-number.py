@@ -44,9 +44,11 @@ class Solution(object):
             "m", "n", "o"], "7": ["p", "q", "r", "s"], "8": ["t", "u", "v"], "9": ["w", "x", "y", "z"]}
         if len(digits) == 1:
             return table[digits]
-        rest = self.letterCombinations(digits[1:])
-        res = []
-        for n in table[digits[:1]]:
-            for r in rest:
-                res.append(n+r)
+        res = [""]
+        for d in digits:
+            tmp = []
+            for pre in res:
+                for post in table[d]:
+                    tmp.append(pre+post)
+            res = tmp
         return res
