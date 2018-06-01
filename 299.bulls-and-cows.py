@@ -54,17 +54,10 @@ class Solution(object):
         :type guess: str
         :rtype: str
         """
-        table = collections.defaultdict(int)
-        for n in secret:
-            table[n] += 1
         A = 0
-        B = 0
-        for n in guess:
-            if table[n] > 0:
-                B += 1
-            table[n] -= 1
         for n1, n2 in zip(secret, guess):
             if n1 == n2:
                 A += 1
-                B -= 1
-        return "%dA%dB" % (A, B)
+        total = sum([min(secret.count(d), guess.count(d))
+                     for d in "0123456789"] or [0])
+        return "%dA%dB" % (A, total-A)
