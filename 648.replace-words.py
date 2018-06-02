@@ -59,6 +59,36 @@ class Solution(object):
         """
         if not dicts or not sentence:
             return sentence
+        dicts.sort()
+        pre = dicts[0]+"z"
+        duplicate = set()
+        for word in dicts:
+            if len(pre) < len(word) and word[:len(pre)] == pre:
+                duplicate.add(word)
+            else:
+                pre = word
+        dicts = [d for d in dicts if d not in duplicate]
+        sentence = sentence.split()
+        for i, word in enumerate(sentence):
+            j = bisect.bisect_right(dicts, word)
+            root = dicts[max(j-1, 0)]
+            if root == word[:len(root)]:
+                sentence[i] = root
+        return " ".join(sentence)
+
+
+# Beats 15%
+
+
+class Solution2(object):
+    def replaceWords(self, dicts, sentence):
+        """
+        :type dict: List[str]
+        :type sentence: str
+        :rtype: str
+        """
+        if not dicts or not sentence:
+            return sentence
         sentence = sentence.split()
         res = []
         dicts = set(dicts)
