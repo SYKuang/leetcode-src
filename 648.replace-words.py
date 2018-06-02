@@ -57,6 +57,8 @@ class Solution(object):
         :type sentence: str
         :rtype: str
         """
+        if not dicts or not sentence:
+            return sentence
         sentence = sentence.split()
         res = []
         dicts = set(dicts)
