@@ -77,7 +77,6 @@ class Solution(object):
             newq = collections.deque()
             if not q:
                 break
-            # print q
             while q:
                 start, end = q.popleft()
                 if start <= pos <= end:
@@ -85,7 +84,6 @@ class Solution(object):
                         return day+1
                     if end != len(flowers)+1 and end-pos-1 == k:
                         return day+1
-                    # print start, pos, end
                     if pos-start > k:
                         newq.append([start, pos])
                     if end-pos > k:
