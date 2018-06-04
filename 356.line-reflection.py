@@ -41,16 +41,14 @@ class Solution(object):
         :type points: List[List[int]]
         :rtype: bool
         """
-        if len(points)<=1:
+        points = set([(x, y) for x, y in points])
+        xs = [x for x,_ in points]
+        xs.sort()
+        l = len(xs)
+        if l < 2:
             return True
-        sPoints = set()
-        for a, b in points:
-            sPoints.add((a, b))
-        sPoints = list(sPoints)
-        sPoints.sort(key=lambda x: x[0])
-        line = sPoints[len(sPoints)//2][0] if len(sPoints) % 2 else 1.0*(
-            sPoints[len(sPoints)//2][0]+sPoints[(len(sPoints)//2)-1][0])/2
-        for x, y in sPoints:
-            if (2*line-x, y) not in sPoints:
+        line = xs[l//2] if l % 2 else 1.0*(xs[l//2]+xs[l//2-1])/2
+        for x, y in points:
+            if (2*line-x, y) not in points:
                 return False
         return True
