@@ -45,25 +45,16 @@ class Solution(object):
         :type nums: List[int]
         :rtype: int
         """
-        left = []
-        right = []
-        count = 0
-        for i, n in enumerate(nums):
-            left.append(count)
-            if n:
-                count += 1
-            else:
-                count = 0
-        count = 0
-        for i, n in enumerate(nums[::-1]):
-            right.append(count)
-            if n:
-                count += 1
-            else:
-                count = 0
-        right=right[::-1]
-        res = -1
-        for i in xrange(len(nums)):
-            if not nums[i]:
-                res = max(res, left[i]+right[i]+1)
-        return len(nums) if res < 0 else res
+        left=0
+        zero=0
+        k=1
+        res=0
+        for right in xrange(len(nums)):
+            if not nums[right]:
+                zero+=1
+            while zero>k:
+                if not nums[left]:
+                    zero-=1
+                left+=1
+            res=max(res,right-left+1)
+        return res
