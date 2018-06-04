@@ -90,49 +90,37 @@ class Solution(object):
         """
         if not root:
             return []
-        leaves = []
-        left = [root]
-        right = [root]
-        self.findMost(root.left, False, left)
-        self.findMost(root.right, True, right)
-        self.findLeaves(root, leaves)
-        table = set()
-        ret = []
-        right = right[::-1]
-        for l in left:
-            if l not in table:
-                table.add(l)
-                ret.append(l.val)
-        for l in leaves:
-            if l not in table:
-                table.add(l)
-                ret.append(l.val)
-        for l in right:
-            if l not in table:
-                table.add(l)
-                ret.append(l.val)
-        return ret
+        self.res = []
+        if root.right or root.left:
+            self.res.append(root.val)
+        self.left(root.left)
+        self.leaves(root)
+        self.right(root.right)
+        return self.res
 
-    def findMost(self, root, direct, ret):
-        if not root:
+    def left(self, root):
+        if not root or (not root.left and not root.right):
             return
-        ret.append(root)
-        if not direct:
-            if root.left:
-                return self.findMost(root.left, direct, ret)
-            else:
-                return self.findMost(root.right, direct, ret)
+        self.res.append(root.val)
+        if root.left:
+            self.left(root.left)
         else:
-            if root.right:
-                return self.findMost(root.right, direct, ret)
-            else:
-                return self.findMost(root.left, direct, ret)
+            self.left(root.right)
 
-    def findLeaves(self, root, ret):
+    def leaves(self, root):
         if not root:
             return
         if not root.left and not root.right:
-            ret.append(root)
+            self.res.append(root.val)
+        self.leaves(root.left)
+        self.leaves(root.right)
+
+    def right(self, root):
+        if not root or (not root.left and not root.right):
             return
-        self.findLeaves(root.left, ret)
-        self.findLeaves(root.right, ret)
+
+        if root.right:
+            self.right(root.right)
+        else:
+            self.right(root.left)
+        self.res.append(root.val)
