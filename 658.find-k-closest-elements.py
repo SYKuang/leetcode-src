@@ -62,21 +62,15 @@ class Solution(object):
             return arr[:k]
         elif l == len(arr)-1:
             return arr[l-k+1:]
-        # arr.insert(0, sys.maxint)
-        # arr.append(sys.maxint)
+        arr.insert(0, sys.maxint)
+        arr.append(sys.maxint)
         start = max(0, l-k)
-        end = l
-        mid = (start+end)/2
-        while start < end:
-            if end == len(arr):
-                mid = end-k
-                break
-            if start < 0:
-                mid = 0
-                break
-            if mid+k < len(arr) and abs(arr[mid]-x) > abs(arr[mid+k]-x):
-                start = mid+1
+        end=l
+        mid=(start+end)/2
+        while start<end:
+            if mid+k<len(arr) and abs(arr[mid]-x) >abs(arr[mid+k]-x):
+                start=mid+1
             else:
-                end = mid
-            mid = (start+end)/2
+                end=mid
+            mid=(start+end)/2
         return arr[mid:mid+k]
