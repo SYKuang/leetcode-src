@@ -62,17 +62,15 @@ class Solution(object):
             return arr[:k]
         elif l == len(arr)-1:
             return arr[l-k+1:]
-        r = l+1
-        count = 0
-        res = []
         arr.insert(0, sys.maxint)
         arr.append(sys.maxint)
-        while count < k:
-            if abs(x-arr[l]) > abs(x-arr[r]):
-                res.append(arr[r])
-                r += 1
+        start = max(0, l-k)
+        end = l
+        mid = (start+end)/2
+        while start < end:
+            if mid+k < len(arr) and abs(arr[mid]-x) > abs(arr[mid+k]-x):
+                start = mid+1
             else:
-                res.append(arr[l])
-                l -= 1
-            count+=1
-        return sorted(res)
+                end = mid
+            mid = (start+end)/2
+        return arr[mid:mid+k]
