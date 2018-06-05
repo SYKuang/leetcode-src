@@ -68,11 +68,11 @@ class Solution(object):
         end = l
         mid = (start+end)/2
         while start < end:
-            if end==len(arr):
-                mid=end-k
+            if end == len(arr):
+                mid = end-k
                 break
-            if start<0:
-                mid=0
+            if start < 0:
+                mid = 0
                 break
             if mid+k < len(arr) and abs(arr[mid]-x) > abs(arr[mid+k]-x):
                 start = mid+1
