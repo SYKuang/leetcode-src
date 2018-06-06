@@ -33,11 +33,15 @@ class Solution(object):
             return 1
         elif n == 1:
             return 10
-        dp = [10, 81]
+        elif n == 2:
+            return 91
+        pre = 81
+        res = 91
         n -= 2
         if n >= 9:
             n = 8
 
         for i in xrange(8, 8-n, -1):
-            dp.append(dp[-1]*i)
-        return sum(dp)
+            pre = pre*i
+            res += pre
+        return res
