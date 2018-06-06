@@ -54,15 +54,4 @@ class Solution(object):
         :type word: str
         :rtype: bool
         """
-        if word[:1].islower():
-            for c in word[1:]:
-                if c.isupper():
-                    return False
-        else:
-            upper = 0
-            for c in word[1:]:
-                if c.isupper():
-                    upper += 1
-            if upper != 0 and upper != len(word)-1:
-                return False
-        return True
+        return word == word.lower() or word[1:] == word[1:].lower() or word == word.upper()
