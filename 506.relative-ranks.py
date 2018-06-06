@@ -41,20 +41,15 @@ class Solution(object):
         :type nums: List[int]
         :rtype: List[str]
         """
-        def getRanks(i):
-            if i == 1:
-                return "Gold Medal"
-            elif i == 2:
-                return "Silver Medal"
-            elif i == 3:
-                return "Bronze Medal"
-            else:
-                return str(i)
-        q = []
-        for i, n in enumerate(nums):
-            heapq.heappush(q, (-n, i))
+
+        q = [(-n, i) for i, n in enumerate(nums)]
+        heapq.heapify(q)
         res = [""]*len(nums)
+        medal = ["Gold Medal", "Silver Medal", "Bronze Medal"]
         for order in xrange(len(nums)):
             _, i = heapq.heappop(q)
-            res[i] = getRanks(order+1)
+            if order < 3:
+                res[i] = medal[order]
+            else:
+                res[i] = str(order+1)
         return res
