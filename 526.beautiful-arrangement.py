@@ -50,15 +50,20 @@ class Solution(object):
         :type N: int
         :rtype: int
         """
+        self.mem = {}
         self.res = 0
-        self.helper(N, range(1, N+1))
-        return self.res
-
-    def helper(self, n, nums):
-        if n <= 0:
-            self.res += 1
-        for i in xrange(n):
-            if nums[i] % n == 0 or n % nums[i] == 0:
-                nums[i], nums[n-1] = nums[n-1], nums[i]
-                self.helper(n-1, nums)
-                nums[i], nums[n-1] = nums[n-1], nums[i]
+        self.a = [{j for j in range(1, N+1) if i %
+                   j == 0 or j % i == 0} for i in range(1, N+1)]
+        self.a.sort(key=len)
+        return self.helper(0,frozenset())
+    def helper(self, pos, visited):
+        if pos == len(self.a):
+            return 1
+        counter = 0
+        for i in self.a[pos]:
+            if i not in visited:
+                newVisited = visited | {i}
+                if newVisited not in self.mem:
+                    self.mem[newVisited] = self.helper(pos+1, newVisited)
+                counter += self.mem[newVisited]
+        return counter
