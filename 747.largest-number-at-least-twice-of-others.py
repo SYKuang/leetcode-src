@@ -58,11 +58,14 @@ class Solution(object):
         :type nums: List[int]
         :rtype: int
         """
-        mx = max(nums)
-        idx = -1
+        id_mx, mx = -1, -1
+        mx2 = -1, -1
         for i, n in enumerate(nums):
-            if n == mx:
-                idx = i
-            elif n*2 > mx:
-                return -1
-        return idx
+            if n >= mx:
+                mx2 = mx
+                id_mx, mx = i, n
+            elif n > mx2:
+                mx2 = n
+        if mx2*2 > mx:
+            return -1
+        return id_mx
