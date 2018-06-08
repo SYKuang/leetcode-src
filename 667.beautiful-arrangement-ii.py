@@ -55,19 +55,10 @@ class Solution(object):
         :type k: int
         :rtype: List[int]
         """
-        i = 1
-        j = n
-        res = []
-        while i <= j:
-            if k > 1:
-                if k % 2:
-                    res.append(i)
-                    i += 1
-                else:
-                    res.append(j)
-                    j -= 1
-                k-=1
+        ans=range(1,n-k)
+        for d in xrange(k+1):
+            if d%2:
+                ans.append(n-d//2)
             else:
-                res.append(i)
-                i+=1
-        return res
+                ans.append(n-k+d//2)
+        return ans
