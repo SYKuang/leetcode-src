@@ -34,6 +34,8 @@
 #
 #
 
+import heapq
+
 
 class Solution(object):
     def nthSuperUglyNumber(self, n, primes):
@@ -42,16 +44,25 @@ class Solution(object):
         :type primes: List[int]
         :rtype: int
         """
+        picked_idx = [0]*len(primes)
+        idx = [0]*n
         res = [1]
-        idx = [0]*len(primes)
-        while len(res) < n:
-            tmp = []
-            for i in xrange(len(primes)):
-                tmp.append(res[idx[i]]*primes[i])
-            mn = min(tmp)
-            for i in xrange(len(primes)):
-                if res[idx[i]]*primes[i] == mn:
-                    idx[i] += 1
-            res.append(mn)
-
+        q = []
+        for i, p in enumerate(primes):
+            heapq.heappush(q, (p, i))
+        for i in range(1, n):
+            num, k = heapq.heappop(q)
+            res.append(num)
+            idx[i] = k
+            picked_idx[k] += 1
+            # To avoid duplicate number, we need to make sure that primes[k]
+            # only generate number with primes[j] where j<k
+            while idx[picked_idx[k]] > k:
+                picked_idx[k] += 1
+            heapq.heappush(q, (primes[k]*res[picked_idx[k]], k))
         return res[-1]
+
+
+if __name__ == "__main__":
+    sol = Solution()
+    sol.nthSuperUglyNumber(7, [2, 3, 5])
