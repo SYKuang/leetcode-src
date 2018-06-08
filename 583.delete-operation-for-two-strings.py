@@ -40,6 +40,26 @@ class Solution(object):
         :type word2: str
         :rtype: int
         """
+        # Step 1 Find longest common subsequence
+        dp = [0]*(len(word2)+1)
+        for i in xrange(len(word1)):
+            newDp = [0]*(len(word2)+1)
+            for j in xrange(len(word2)):
+                if word1[i] == word2[j]:
+                    newDp[j+1] = dp[j]+1
+                else:
+                    newDp[j+1] = max(dp[j+1], newDp[j])
+            dp = newDp
+        return len(word1)+len(word2)-dp[-1]*2
+
+
+class Solution2(object):
+    def minDistance(self, word1, word2):
+        """
+        :type word1: str
+        :type word2: str
+        :rtype: int
+        """
         m = len(word1)
         n = len(word2)
         dp = [[0] * (n+1) for _ in xrange(m+1)]
