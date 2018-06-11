@@ -57,7 +57,6 @@ class Solution(object):
             return []
         nums.sort()
         dp = {nums[0]:[nums[0]]}
-        mx = -1
         res_index = nums[0]
         for i in xrange(1,len(nums)):
             dp[nums[i]]=[nums[i]]
