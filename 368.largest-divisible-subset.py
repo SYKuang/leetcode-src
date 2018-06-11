@@ -48,22 +48,15 @@ class Solution(object):
         if not nums:
             return []
         nums.sort()
-        dp = [1]*len(nums)
+        dp = [[] for _ in xrange(len(nums))]
         parent = [-1]*len(nums)
         mx = -1
         index = -1
         for i in xrange(len(nums)):
+            dp[i].append(nums[i])
             for j in xrange(i):
-                if nums[i] % nums[j] == 0 and dp[i] < dp[j]+1:
-                    dp[i] = dp[j]+1
-                    parent[i] = j
-                    if dp[i] > mx:
-                        mx = dp[i]
+                if nums[i] % nums[j] == 0 and len(dp[i]) < len(dp[j])+1:
+                    dp[i] = dp[j]+[nums[i]]
+                    if len(dp[i]) > len(dp[index]):
                         index = i
-        if mx == -1:
-            return [nums[0]]
-        res = []
-        while index != -1:
-            res.append(nums[index])
-            index = parent[index]
-        return res
+        return dp[index]
