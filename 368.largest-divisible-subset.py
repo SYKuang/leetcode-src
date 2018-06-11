@@ -45,18 +45,25 @@ class Solution(object):
         :type nums: List[int]
         :rtype: List[int]
         """
+        def factor(num):
+            res = set()
+            for i in xrange(1,int(num**0.5)+1):
+                if num % i == 0:
+                    res.add(i)
+                    res.add(num/i)
+            res.discard(num)
+            return res
         if not nums:
             return []
         nums.sort()
-        dp = [[] for _ in xrange(len(nums))]
-        parent = [-1]*len(nums)
+        dp = {nums[0]:[nums[0]]}
         mx = -1
-        index = -1
-        for i in xrange(len(nums)):
-            dp[i].append(nums[i])
-            for j in xrange(i):
-                if nums[i] % nums[j] == 0 and len(dp[i]) < len(dp[j])+1:
-                    dp[i] = dp[j]+[nums[i]]
-                    if len(dp[i]) > len(dp[index]):
-                        index = i
-        return dp[index]
+        res_index = nums[0]
+        for i in xrange(1,len(nums)):
+            dp[nums[i]]=[nums[i]]
+            for f in factor(nums[i]):
+                if f in nums and len(dp[nums[i]]) < len(dp[f])+1:
+                    dp[nums[i]] = dp[f]+[nums[i]]
+                    if len(dp[nums[i]]) > len(dp[res_index]):
+                        res_index = nums[i]
+        return dp[res_index]
