@@ -57,22 +57,21 @@
 
 
 class Solution(object):
-    def __init__(self):
-        self.table = {}
-
     def integerReplacement(self, n):
         """
         :type n: int
         :rtype: int
         """
-        if n in self.table:
-            return self.table[n]
-        if n == 1:
-            return 0
-        if n % 2 == 0:
-            res = self.integerReplacement(n/2)+1
-        else:
-            res = min(self.integerReplacement(n+1),
-                      self.integerReplacement(n-1))+1
-        self.table[n] = res
-        return res
+        count = 0
+        while n > 1:
+            if n == 3:
+                count += 2
+                break
+            if n % 4 == 1:
+                n -= 1
+            elif n % 4 == 3:
+                n += 1
+            else:
+                n /= 2
+            count += 1
+        return count
