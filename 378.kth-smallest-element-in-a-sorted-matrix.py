@@ -44,14 +44,14 @@ class Solution(object):
         """
         lo = matrix[0][0]
         hi = matrix[-1][-1]
-        while lo <= hi:
+        while lo < hi:
             mid = (lo+hi)//2
             lower = self.count(matrix, mid)
-            if lower >= k:
-                hi = mid-1
-            else:
+            if lower < k:
                 lo = mid+1
-        return lo
+            else:
+                hi = mid
+        return hi
 
     def count(self, matrix, num):
         i = len(matrix)-1
