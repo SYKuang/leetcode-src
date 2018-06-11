@@ -67,9 +67,12 @@ class Solution(object):
         """
         if n in self.table:
             return self.table[n]
-        if n==1:
+        if n == 1:
             return 0
         if n % 2 == 0:
-            return self.integerReplacement(n/2)+1
+            res = self.integerReplacement(n/2)+1
         else:
-            return min(self.integerReplacement(n+1), self.integerReplacement(n-1))+1
+            res = min(self.integerReplacement(n+1),
+                      self.integerReplacement(n-1))+1
+        self.table[n] = res
+        return res
