@@ -59,10 +59,12 @@ class Solution(object):
         :rtype: int
         """
         heaters.sort()
+        heaters_set=set(heaters)
         res = 0
         for house in houses:
-            pos = bisect.bisect(heaters, house)
-            dist1 = sys.maxint if pos == len(heaters) else heaters[pos]-house
-            dist2 = sys.maxint if pos == 0 else house - heaters[pos-1]
-            res = max(res, min(dist1, dist2))
+            if house not in heaters_set:
+                pos = bisect.bisect(heaters, house)
+                dist1 = sys.maxint if pos == len(heaters) else heaters[pos]-house
+                dist2 = sys.maxint if pos == 0 else house - heaters[pos-1]
+                res = max(res, min(dist1, dist2))
         return res
