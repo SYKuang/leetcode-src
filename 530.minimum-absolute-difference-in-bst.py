@@ -51,12 +51,13 @@ class Solution(object):
         :type root: TreeNode
         :rtype: int
         """
-        arr=self.inorder(root)
-        res=sys.maxint
-        for a,b in zip(arr,arr[1:]):
-            res=min(res,b-a)
+        arr = self.inorder(root)
+        res = sys.maxint
+        for a, b in zip(arr, arr[1:]):
+            res = min(res, b-a)
         return res
-    def inorder(self,root):
+
+    def inorder(self, root):
         if not root:
             return []
         return self.inorder(root.left)+[root.val]+self.inorder(root.right)
