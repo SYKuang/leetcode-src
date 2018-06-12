@@ -58,7 +58,6 @@ class Solution(object):
         :type heaters: List[int]
         :rtype: int
         """
-        houses.sort()
         heaters.sort()
         res = 0
         for house in houses:
