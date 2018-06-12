@@ -54,8 +54,42 @@
 #         self.left = None
 #         self.right = None
 
+# BFS
+
 
 class Solution(object):
+    def findMode(self, root):
+        """
+        :type root: TreeNode
+        :rtype: List[int]
+        """
+        p = root
+        stack = []
+        mx = 0
+        cnt = 0
+        pre = None
+        res = []
+        while p or stack:
+            while p:
+                stack.append(p)
+                p = p.left
+            p = stack.pop()
+            if p.val == pre:
+                cnt += 1
+            else:
+                cnt = 1
+            if cnt >= mx:
+                if cnt > mx:
+                    res = []
+                res.append(p.val)
+                mx=cnt
+            pre = p.val
+            p = p.right
+        return res
+# DFS
+
+
+class Solution2(object):
     def findMode(self, root):
         """
         :type root: TreeNode
@@ -67,6 +101,7 @@ class Solution(object):
         self.mx = 0
         self.helper(root)
         return self.res
+
     def helper(self, root):
         if not root:
             return
@@ -78,5 +113,5 @@ class Solution(object):
                 self.res = []
             self.res.append(root.val)
             self.mx = self.cnt
-        self.pre=root
+        self.pre = root
         self.helper(root.right)
