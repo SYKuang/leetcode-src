@@ -33,11 +33,21 @@ class Solution(object):
         :type s: str
         :rtype: List[str]
         """
+        if len(s)<10:
+            return []
         res = set()
         table = set()
-        for i in xrange(len(s)-9):
-            if s[i:i+10] in table:
-                res.add(s[i:i+10])
+        maping = {'A': 0, 'T': 1, "C": 2, "G": 3}
+        i = 0
+        cur = 0
+        while i < 9:
+            cur = cur << 2 | maping[s[i]]
+            i += 1
+        while i < len(s):
+            cur = (cur & 0x3ffff)<< 2 | maping[s[i]]
+            if cur in table:
+                res.add(s[i-9:i+1])
             else:
-                table.add(s[i:i+10])
+                table.add(cur)
+            i+=1
         return list(res)
