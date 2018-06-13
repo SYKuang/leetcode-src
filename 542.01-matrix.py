@@ -76,10 +76,10 @@ class Solution(object):
         while q:
             newQ = []
             for i, j in q:
-                z = matrix[i][j]
+                z = matrix[i][j]+1
                 for nI, nJ in ((i+1, j), (i-1, j), (i, j-1), (i, j+1)):
-                    if 0 <= nI < m and 0 <= nJ < n and matrix[nI][nJ] > z+1:
-                        matrix[nI][nJ] = z+1
+                    if 0 <= nI < m and 0 <= nJ < n and matrix[nI][nJ] > z:
+                        matrix[nI][nJ] = z
                         newQ.append((nI, nJ))
             q = newQ
         return matrix
