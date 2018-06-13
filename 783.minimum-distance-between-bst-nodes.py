@@ -56,7 +56,7 @@ class Solution(object):
         :rtype: int
         """
         self.res = sys.maxint
-        self.arr = []
+        self.pre = -sys.maxint
         self.traversal(root)
         return self.res
 
@@ -64,7 +64,6 @@ class Solution(object):
         if not root:
             return
         left = self.traversal(root.left)
-        if self.arr:
-            self.res = min(self.res, root.val-self.arr[-1])
-        self.arr.append(root.val)
+        self.res = min(self.res, root.val-self.pre)
+        self.pre = root.val
         right = self.traversal(root.right)
