@@ -35,10 +35,10 @@ class Solution(object):
         :type s: str
         :rtype: int
         """
-        index = {c: i for i, c in enumerate(s)}
-        counter = collections.Counter(s)
         res = len(s)
-        for k in counter:
-            if counter[k] == 1 and index[k] < res:
-                res = index[k]
+        for i in xrange(26):
+            c = chr(ord('a')+i)
+            cIndex = s.find(c)
+            if cIndex != -1 and cIndex == s.rfind(c):
+                res = min(res, cIndex)
         return -1 if res == len(s) else res
