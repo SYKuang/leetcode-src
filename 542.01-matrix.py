@@ -62,6 +62,35 @@ class Solution(object):
         :type matrix: List[List[int]]
         :rtype: List[List[int]]
         """
+        q = []
+        m = len(matrix)
+        if not m:
+            return []
+        n = len(matrix[0])
+        for i in xrange(m):
+            for j in xrange(n):
+                if matrix[i][j]:
+                    matrix[i][j] = sys.maxint-1
+                else:
+                    q.append((i, j))
+        while q:
+            newQ = []
+            for i, j in q:
+                z = matrix[i][j]
+                for nI, nJ in ((i+1, j), (i-1, j), (i, j-1), (i, j+1)):
+                    if 0 <= nI < m and 0 <= nJ < n and matrix[nI][nJ] > z+1:
+                        matrix[nI][nJ] = z+1
+                        newQ.append((nI, nJ))
+            q = newQ
+        return matrix
+
+
+class Solution2(object):
+    def updateMatrix(self, matrix):
+        """
+        :type matrix: List[List[int]]
+        :rtype: List[List[int]]
+        """
         m = len(matrix)
         if not m:
             return []
