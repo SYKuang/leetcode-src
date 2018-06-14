@@ -32,12 +32,11 @@ class Solution(object):
         :type temperatures: List[int]
         :rtype: List[int]
         """
-        # Use descending stack
         stack = []
-        ret = [0]*len(temperatures)
-        for i in xrange(len(temperatures)):
-            while len(stack) > 0 and temperatures[i] > temperatures[stack[-1]]:
-                t = stack.pop()
-                ret[t] = i-t
-            stack.append(i)
-        return ret
+        res = [0]*len(temperatures)
+        for i, temp in enumerate(temperatures):
+            while stack and temp > stack[-1][0]:
+                _, index = stack.pop()
+                res[index] = i-index
+            stack.append((temp,i))
+        return res
