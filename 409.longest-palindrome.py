@@ -40,13 +40,12 @@ class Solution(object):
         :type s: str
         :rtype: int
         """
-        counter = collections.Counter(s)
-        res = 0
-        single = 0
-        for c in counter:
-            if counter[c] % 2 == 0:
-                res += counter[c]
-            else:
-                single = 1
-                res += counter[c]-1
-        return res+single
+        res = len(s)
+        odd = False
+        for c in set(s):
+            if s.count(c) % 2:
+                res -= 1
+                odd = True
+        if odd:
+            res += 1
+        return res
