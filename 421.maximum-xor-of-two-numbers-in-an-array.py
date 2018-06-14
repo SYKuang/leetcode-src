@@ -37,15 +37,13 @@ class Solution(object):
         res = 0
         mask = 0
         for i in xrange(31, -1, -1):
-            mask |= 1 << i
-            tmp = res | 1 << i
+            mask = mask | (1 << i)
             s = set()
-            find = False
             for n in nums:
                 s.add(n & mask)
-                if (n ^ tmp) & mask in s:
-                    find = True
+            tmp = res | (1 << i)
+            for n in s:
+                if (n ^ tmp) in s:
+                    res = tmp
                     break
-            if find:
-                res = tmp
         return res
