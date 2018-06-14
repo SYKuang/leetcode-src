@@ -51,10 +51,4 @@ class Solution(object):
         :type s: str
         :rtype: bool
         """
-        n = len(s)
-        for i in xrange(1, n//2+1):
-            if n % i:
-                continue
-            if s[:i]*(n/i) == s:
-                return True
-        return False
+        return s in (s+s)[1:-1]
