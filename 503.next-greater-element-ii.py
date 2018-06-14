@@ -40,6 +40,35 @@ class Solution(object):
         :type nums: List[int]
         :rtype: List[int]
         """
+        leng = len(nums)
+        if not leng:
+            return []
+        max_idx = 0
+        max_num = nums[0]
+        for i in xrange(1, leng):
+            if nums[i] > max_num:
+                max_num = nums[i]
+                max_idx = i
+        stack = [max_num]
+        idx = (max_idx - 1) % leng
+        res = [-1]*leng
+        while idx != max_idx:
+            n = nums[idx]
+            while stack and stack[-1] <= n:
+                stack.pop()
+            if stack:
+                res[idx] = stack[-1]
+            stack.append(n)
+            idx = (idx-1) % leng
+        return res
+
+
+class Solution2(object):
+    def nextGreaterElements(self, nums):
+        """
+        :type nums: List[int]
+        :rtype: List[int]
+        """
         res = [-1]*len(nums)
         stack = []
         leng = len(nums)
