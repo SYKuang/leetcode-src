@@ -40,16 +40,19 @@ class Solution(object):
         :type words: List[str]
         :rtype: int
         """
-        def isSubseq(S, word):
-            index = 0
-            for c in word:
-                index = S.find(c, index)
-                if index == -1:
-                    return False
-                index += 1
-            return True
-        res = 0
+        d = collections.defaultdict(list)
         for word in words:
-            if isSubseq(S, word):
-                res += 1
-        return res
+            d[word[0]].append(word)
+        m = len(words)
+        for i, c in enumerate(S):
+            if m == 0:
+                break
+            u = d[c]
+            d[c] = []
+            for word in u:
+                word = word[1:]
+                if not word:
+                    m -= 1
+                    continue
+                d[word[0]].append(word)
+        return len(words)-m
