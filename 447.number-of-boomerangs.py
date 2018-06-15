@@ -39,11 +39,12 @@ class Solution(object):
         """
         res = 0
         for x1, y1 in points:
-            m = collections.defaultdict(int)
+            m = {}
             for x2, y2 in points:
-                x = x2-x1
-                y = y2-y1
-                m[x**2+y**2] += 1
-            for value in m.values():
-                res += value*(value-1)
+                dist = (x1-x2)**2+(y1-y2)**2
+                if dist in m:
+                    res += m[dist]
+                    m[dist] += 2
+                else:
+                    m[dist] = 2
         return res
