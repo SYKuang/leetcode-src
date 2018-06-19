@@ -66,7 +66,7 @@ class Solution(object):
         """
         res = len(G)
         arr = []
-        setG=set(G)
+        setG = set(G)
         while head:
             arr.append(head.val)
             head = head.next
