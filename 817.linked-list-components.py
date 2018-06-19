@@ -67,10 +67,11 @@ class Solution(object):
         res = len(G)
         arr = []
         setG = set(G)
+        pre = None
         while head:
-            arr.append(head.val)
-            head = head.next
-        for v1, v2 in zip(arr, arr[1:]):
-            if v1 in setG and v2 in setG:
+            if pre is not None and pre in setG and head.val in setG:
+                print pre,head.val
                 res -= 1
+            pre = head.val
+            head = head.next
         return res
