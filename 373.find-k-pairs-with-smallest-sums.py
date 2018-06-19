@@ -66,48 +66,16 @@ class Solution(object):
         :type k: int
         :rtype: List[List[int]]
         """
+        if not nums1 or not nums2:
+            return []
+        res = []
         q = []
-
-        def push(i, j):
-            if i < len(nums1) and j < len(nums2):
-                heapq.heappush(q, (nums1[i]+nums2[j], i, j))
-        push(0, 0)
-        ret = []
-        while q and len(ret) < k:
+        heapq.heappush(q, (nums1[0]+nums2[0], 0, 0))
+        while len(res) < k and q:
             _, i, j = heapq.heappop(q)
-            ret.append([nums1[i], nums2[j]])
-            push(i, j+1)
-            if j == 0:
-                push(i+1, j)
-        return ret
-
-
-""" beats 17%
-        idx = [0]*len(nums1)
-        ret = []
-        l = min(k, len(nums1)*len(nums2))
-        for _ in xrange(l):
-            cur = 0
-            total = sys.maxint
-            for i in xrange(len(nums1)):
-                if idx[i] < len(nums2) and nums1[i]+nums2[idx[i]] <= total:
-                    cur = i
-                    total = nums1[i]+nums2[idx[i]]
-            ret.append([nums1[cur], nums2[idx[cur]]])
-            idx[cur] += 1
-        return ret
-"""
-
-""" Beats 0%
-        q = []
-        for i in xrange(min(len(nums1), k)):
-            for j in xrange(min(len(nums2), k)):
-                heapq.heappush(q, (-(nums1[i]+nums2[j]), nums1[i], nums2[j]))
-                while len(q) > k:
-                    heapq.heappop(q)
-        ret = []
-        while q:
-            _, n1, n2 = heapq.heappop(q)
-            ret.append([n1, n2])
-        return ret[::-1]
-"""
+            if j == 0 and i < len(nums1)-1:
+                heapq.heappush(q, (nums1[i+1]+nums2[j], i+1, j))
+            if j < len(nums2)-1:
+                heapq.heappush(q, (nums1[i]+nums2[j+1], i, j+1))
+            res.append([nums1[i], nums2[j]])
+        return res
