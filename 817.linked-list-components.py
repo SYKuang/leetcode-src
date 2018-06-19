@@ -70,7 +70,6 @@ class Solution(object):
         pre = None
         while head:
             if pre is not None and pre in setG and head.val in setG:
-                print pre,head.val
                 res -= 1
             pre = head.val
             head = head.next
