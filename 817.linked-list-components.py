@@ -64,17 +64,13 @@ class Solution(object):
         :type G: List[int]
         :rtype: int
         """
-        g = set(G)
-        connect = False
-        res = 0
+        res = len(G)
+        arr = []
+        setG=set(G)
         while head:
-            if head.val not in g:
-                if connect:
-                    res += 1
-                    connect = False
-            else:
-                connect = True
+            arr.append(head.val)
             head = head.next
-        if connect:
-            res += 1
+        for v1, v2 in zip(arr, arr[1:]):
+            if v1 in setG and v2 in setG:
+                res -= 1
         return res
