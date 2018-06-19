@@ -37,14 +37,18 @@ class Solution(object):
         :type points: List[List[int]]
         :rtype: int
         """
+        def getDist(i, j):
+            return (j[0]-i[0])**2 + (j[1]-i[1])**2
         res = 0
-        for x1, y1 in points:
-            m = {}
-            for x2, y2 in points:
-                dist = (x1-x2)**2+(y1-y2)**2
-                if dist in m:
-                    res += m[dist]
-                    m[dist] += 2
-                else:
-                    m[dist] = 2
+        dp = [collections.defaultdict(int) for _ in xrange(len(points))]
+        for i in xrange(len(points)-1):
+            for j in xrange(i+1, len(points)):
+                dist = getDist(points[i], points[j])
+                dp[i][dist] += 1
+                dp[j][dist] += 1
+        for i in xrange(len(points)):
+            for dist in dp[i]:
+                n = dp[i][dist]
+                if n >= 2:
+                    res += n*(n-1)
         return res
