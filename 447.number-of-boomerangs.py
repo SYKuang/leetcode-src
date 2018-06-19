@@ -40,15 +40,13 @@ class Solution(object):
         def getDist(i, j):
             return (j[0]-i[0])**2 + (j[1]-i[1])**2
         res = 0
-        dp = [collections.defaultdict(int) for _ in xrange(len(points))]
-        for i in xrange(len(points)-1):
-            for j in xrange(i+1, len(points)):
-                dist = getDist(points[i], points[j])
-                dp[i][dist] += 1
-                dp[j][dist] += 1
         for i in xrange(len(points)):
-            for dist in dp[i]:
-                n = dp[i][dist]
-                if n >= 2:
-                    res += n*(n-1)
+            dp = {}
+            for j in xrange(len(points)):
+                dist = getDist(points[i], points[j])
+                if dist in dp:
+                    res += dp[dist]
+                    dp[dist] += 2
+                else:
+                    dp[dist] = 2
         return res
