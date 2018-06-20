@@ -64,12 +64,12 @@ class Solution(object):
         while q:
             start = q[-1]
             if not table[start]:
-                res.insert(0, start)
+                res.append(start)
                 q.pop()
             else:
                 q.append(table[start][0])
                 table[start].pop(0)
-        return res
+        return res[::-1]
 
 
 class Solution2(object):
