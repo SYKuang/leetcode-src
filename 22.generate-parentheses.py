@@ -29,7 +29,7 @@
 #
 
 
-class Solution(object):
+class Solution2(object):
     def generateParenthesis(self, n):
         """
         :type n: int
@@ -43,3 +43,25 @@ class Solution(object):
                     for y in dp[i-j-1]:
                         dp[i].append("("+x+")"+y)
         return dp[n]
+
+
+class Solution(object):
+    def generateParenthesis(self, n):
+        """
+        :type n: int
+        :rtype: List[str]
+        """
+        self.res = []
+        self.helper(n, n, "")
+        return self.res
+
+    def helper(self, left, right, res):
+        if left == right == 0:
+            self.res.append(res)
+            return
+        if left > right:
+            return
+        if left > 0:
+            self.helper(left-1, right, res+"(")
+        if right > 0:
+            self.helper(left, right-1, res+")")
