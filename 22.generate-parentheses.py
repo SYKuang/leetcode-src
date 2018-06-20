@@ -35,15 +35,11 @@ class Solution(object):
         :type n: int
         :rtype: List[str]
         """
-        if n == 0:
-            return [""]
-        # if n == 1:
-            # return ["()"]
-        res = set()
-        pre = self.generateParenthesis(n-1)
-        for p in pre:
-            for i in xrange(len(p)):
-                if p[i] == "(":
-                    res.add(p[:i+1]+"()"+p[i+1:])
-            res.add("()"+p)
-        return list(res)
+        dp = [[] for _ in xrange(n+1)]
+        dp[0] = [""]
+        for i in xrange(1, n+1):
+            for j in xrange(i):
+                for x in dp[j]:
+                    for y in dp[i-j-1]:
+                        dp[i].append("("+x+")"+y)
+        return dp[n]
