@@ -74,7 +74,6 @@ class Solution(object):
         res = list(S)
         for index, source, target in zip(indexes, sources, targets):
             if S[index:index+len(source)] == source:
-                for i in xrange(index, index+len(source)):
-                    res[i] = ""
+                res[index:index+len(source)] = [""]*len(source)
                 res[index] = target
         return "".join(res)
