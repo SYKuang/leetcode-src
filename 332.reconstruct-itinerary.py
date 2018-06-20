@@ -55,6 +55,29 @@ class Solution(object):
         :type tickets: List[List[str]]
         :rtype: List[str]
         """
+        tickets.sort(key=lambda x: x[0]+x[1])
+        table = collections.defaultdict(list)
+        for f, t in tickets:
+            table[f].append(t)
+        q = ["JFK"]
+        res = []
+        while q:
+            start = q[-1]
+            if not table[start]:
+                res.insert(0, start)
+                q.pop()
+            else:
+                q.append(table[start][0])
+                table[start].pop(0)
+        return res
+
+
+class Solution2(object):
+    def findItinerary(self, tickets):
+        """
+        :type tickets: List[List[str]]
+        :rtype: List[str]
+        """
         self.table = collections.defaultdict(list)
         tickets.sort(key=lambda x: x[0]+x[1])
         for f, t in tickets:
