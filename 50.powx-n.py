@@ -50,6 +50,20 @@ class Solution(object):
         :type n: int
         :rtype: float
         """
+        if n == 0:
+            return 1.0
+        half = self.myPow(x, abs(n)//2)
+        res = half*half*x if n % 2 else half*half
+        return res if n >= 0 else 1.0/res
+
+
+class Solution2(object):
+    def myPow(self, x, n):
+        """
+        :type x: float
+        :type n: int
+        :rtype: float
+        """
         i = abs(n)
         res = 1
         while i > 0:
