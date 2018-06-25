@@ -39,12 +39,12 @@ class Solution(object):
         :type people: List[List[int]]
         :rtype: List[List[int]]
         """
-        def comp(a, b):
+        def compare(a, b):
             if a[0] != b[0]:
                 return b[0]-a[0]
             else:
                 return a[1]-b[1]
-        people.sort(cmp=comp)
+        people.sort(cmp=compare)
         res = []
         for p in people:
             res.insert(p[1], p)
