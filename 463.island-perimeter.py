@@ -39,15 +39,17 @@ class Solution(object):
         :type grid: List[List[int]]
         :rtype: int
         """
-        ret = 0
-        m = len(grid)
-        if m == 0:
+        if not grid:
             return 0
-        n = len(grid[0])
-        for x in xrange(m):
-            for y in xrange(n):
-                if grid[x][y]==1:
-                    for nx, ny in ((x+1, y), (x-1, y), (x, y+1), (x, y-1)):
-                        if nx >= m or ny >= n or nx < 0 or ny < 0 or grid[nx][ny] == 0:
-                            ret += 1
-        return ret
+        res = 0
+
+        for x in xrange(len(grid)):
+            for y in xrange(len(grid[0])):
+                if grid[x][y] == 0:
+                    continue
+                res += 4
+                if x > 0 and grid[x-1][y] == 1:
+                    res -= 2
+                if y > 0 and grid[x][y-1] == 1:
+                    res -= 2
+        return res
