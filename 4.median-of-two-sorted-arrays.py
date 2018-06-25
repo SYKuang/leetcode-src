@@ -41,24 +41,21 @@ class Solution(object):
         :type nums2: List[int]
         :rtype: float
         """
-        if (len(nums1)+len(nums2)) % 2:
-            return self.helper(nums1, nums2, (len(nums1)+len(nums2))/2+1)*1.0
+        if (len(nums2)+len(nums1)) % 2:
+            return 1.0*self.findKth(nums1, nums2, (len(nums2)+len(nums1))//2+1)
         else:
-            return (self.helper(nums1, nums2, (len(nums1)+len(nums2))/2)*1. +
-                    self.helper(nums1, nums2, (len(nums1)+len(nums2))/2+1)*1.)/2
+            return 1.0*(self.findKth(nums1, nums2, (len(nums2)+len(nums1))//2+1)+self.findKth(nums1, nums2, (len(nums2)+len(nums1))//2))/2
 
-    def helper(self, nums1, nums2, k):
+    def findKth(self, nums1, nums2, k):
         if len(nums1) > len(nums2):
-            return self.helper(nums2, nums1, k)
-        if not nums1:
+            return self.findKth(nums2, nums1, k)
+        if len(nums1) == 0:
             return nums2[k-1]
         if k == 1:
             return min(nums1[0], nums2[0])
-        if (len(nums1)+len(nums2)) == k:
-            return max(nums1[-1], nums2[-1])
-        idx1 = min(k//2, len(nums1))
-        idx2 = k-idx1
-        if nums1[idx1-1] > nums2[idx2-1]:
-            return self.helper(nums1, nums2[idx2:], k-idx2)
+        p1 = min(len(nums1), k//2)
+        p2 = k-p1
+        if nums1[p1-1] > nums2[p2-1]:
+            return self.findKth(nums1, nums2[p2:], k-p2)
         else:
-            return self.helper(nums1[idx1:], nums2, k-idx1)
+            return self.findKth(nums1[p1:], nums2, k-p1)
