@@ -50,12 +50,14 @@ class Solution(object):
         :type nums: List[int]
         :rtype: int
         """
+        if len(nums) == 1:
+            return 0
         start = 0
-        end = len(nums)-1
+        end = len(nums)
         while start < end:
-            mid = (end+start)/2
-            if nums[mid] < nums[mid+1]:
+            mid = (start+end)//2
+            if mid < len(nums)-1 and nums[mid] < nums[mid+1]:
                 start = mid+1
             else:
                 end = mid
-        return end
+        return start
