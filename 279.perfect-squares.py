@@ -28,10 +28,24 @@
 #
 #
 
-# Uisng Lagrange's four-square theorem
-
 
 class Solution(object):
+    def numSquares(self, n):
+        """
+        :type n: int
+        :rtype: int
+        """
+        dp = [sys.maxint]*(n+1)
+        dp[0] = 0
+        for i in xrange(n+1):
+            j = 1
+            while i+j*j <= n:
+                dp[i+j*j] = min(dp[i+j*j], dp[i]+1)
+                j+=1
+        return dp[n]
+
+
+class Solution2(object):
     def numSquares(self, n):
         """
         :type n: int
@@ -42,27 +56,11 @@ class Solution(object):
         if n % 8 == 7:
             return 4
         a = 0
-        while a**2 < n:
-            b = int(math.sqrt(n-a**2))
-            if a**2+b**2 == n:
-                return int(not not a) + int(not not b)
+        while a*a <= n:
+            b = int(math.sqrt(n-a*a))
+            if b*b+a*a == n:
+                a = 1 if a else 0
+                b = 1 if b else 0
+                return a+b
             a += 1
         return 3
-# Using DP
-
-
-class Solution2(object):
-    def numSquares(self, n):
-        """
-        :type n: int
-        :rtype: int
-        """
-
-        dp = [sys.maxint]*(n+1)
-        dp[0] = 0
-        for i in xrange(n+1):
-            j = 1
-            while j**2 <= i:
-                dp[i] = min(dp[i-j**2]+1, dp[i])
-                j += 1
-        return dp[n]
