@@ -69,16 +69,15 @@ class Solution(object):
         :type input: str
         :rtype: int
         """
-        stack = []
+        inputs = input.split("\n")
         res = 0
-        input = input.split('\n')
-        for ip in input:
-            strip = ip.replace('\t', '')
-            i = len(ip)-len(strip)
-            if len(stack) == i:
-                stack.append(strip)
-            else:
-                stack[i] = strip
-            if "." in strip:
-                res = max(res, len("".join(stack[:i+1]))+i)
+        stack = []
+        for name in inputs:
+            rname = name.replace("\t", "")
+            layer = len(name)-len(rname)
+            while layer >= len(stack):
+                stack.append("")
+            stack[layer] = rname
+            if rname.count("."):
+                res = max(res, len("".join(stack[:layer+1]))+layer)
         return res
