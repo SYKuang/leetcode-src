@@ -1,3 +1,4 @@
+#
 # [316] Remove Duplicate Letters
 #
 # https://leetcode.com/problems/remove-duplicate-letters/description/
@@ -36,17 +37,18 @@ class Solution(object):
         :type s: str
         :rtype: str
         """
-        m = collections.defaultdict(int)
+        table = collections.defaultdict(int)
         for c in s:
-            m[c] += 1
+            table[c] += 1
+        res = []
         visited = set()
-        res = ["0"]
         for c in s:
-            m[c] -= 1
+            table[c] -= 1
             if c in visited:
                 continue
-            while c < res[-1] and m[res[-1]]:
-                visited.remove(res.pop())
-            visited.add(c)
+            while res and c < res[-1] and table[res[-1]]:
+                visited.remove(res[-1])
+                res.pop()
             res.append(c)
-        return "".join(res[1:])
+            visited.add(c)
+        return "".join(res)
