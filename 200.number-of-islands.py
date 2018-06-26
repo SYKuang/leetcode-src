@@ -57,7 +57,6 @@ class Solution(object):
             if (x, y) in visited:
                 return
             visited.add((x, y))
-            grid[x][y] = "2"
             for nx, ny in ((x+1, y), (x-1, y), (x, y+1), (x, y-1)):
                 if 0 <= nx < m and 0 <= ny < n and not (nx, ny) in visited and grid[nx][ny] == "1":
                     dfs(nx, ny)
@@ -65,7 +64,7 @@ class Solution(object):
         res = 0
         for x in xrange(m):
             for y in xrange(n):
-                if grid[x][y] == "1":
+                if grid[x][y] == "1" and (x,y) not in visited:
                     res += 1
                     dfs(x, y)
         return res
