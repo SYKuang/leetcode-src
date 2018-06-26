@@ -63,40 +63,35 @@ class NestedIterator(object):
         Initialize your data structure here.
         :type nestedList: List[NestedInteger]
         """
-        self.nestedList = collections.deque(nestedList)
-        self.q = collections.deque()
+        self.arr = collections.deque(nestedList)
+        self.res = collections.deque()
 
     def next(self):
         """
         :rtype: int
         """
-        return self.q.popleft()
+        return self.res.popleft()
 
     def hasNext(self):
         """
         :rtype: bool
         """
-        if not self.q:
-            if not self.nestedList:
-                return False
+        while not self.res and self.arr:
+            item = self.arr.popleft()
+            if item.isInteger():
+                self.res.append(item.getInteger())
             else:
-                while not self.q and self.nestedList:
-                    t = self.nestedList.popleft()
-                    if t.isInteger():
-                        self.q.append(t.getInteger())
-                    else:
-                        self.q += self.__helper(t.getList())
-        return self.q
+                self.res += self.flated(item.getList())
+        return self.res
 
-    def __helper(self, arr):
-        ret = []
-        for n in arr:
-            if n.isInteger():
-                ret.append(n.getInteger())
+    def flated(self, arr):
+        res = []
+        for item in arr:
+            if item.isInteger():
+                res.append(item.getInteger())
             else:
-                ret += self.__helper(n.getList())
-        return ret
-
+                res += self.flated(item.getList())
+        return res
 # Your NestedIterator object will be instantiated and called as such:
 # i, v = NestedIterator(nestedList), []
 # while i.hasNext(): v.append(i.next())
