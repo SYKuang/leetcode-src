@@ -40,4 +40,4 @@ class Solution(object):
         :rtype: str
         """
 
-        return " ".join(s.split()[::-1])
+        return " ".join(reversed(s.split()))
