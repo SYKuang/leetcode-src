@@ -35,6 +35,22 @@ class Solution(object):
         :type nums: List[int]
         :rtype: List[int]
         """
+        for n in nums:
+            val = abs(n)
+            nums[val-1] = -abs(nums[val-1])
+        ret = []
+        for i in xrange(len(nums)):
+            if nums[i] > 0:
+                ret.append(i+1)
+        return ret
+
+
+class Solution2(object):
+    def findDisappearedNumbers(self, nums):
+        """
+        :type nums: List[int]
+        :rtype: List[int]
+        """
         i = 0
         while i < len(nums):
             if nums[i] != i+1 and nums[nums[i]-1] != nums[i]:
