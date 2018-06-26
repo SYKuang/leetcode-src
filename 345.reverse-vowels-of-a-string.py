@@ -36,12 +36,14 @@ class Solution(object):
         :rtype: str
         """
         s = list(s)
-        vowels = []
-        for c in s:
-            if c in "aeiouAEIOU":
-                vowels.append(c)
-        for i in xrange(len(s)):
-            if s[i] in "aeiouAEIOU":
-                s[i] = vowels[-1]
-                vowels.pop()
+        start = 0
+        end = len(s)-1
+        while start < end:
+            while start < end and s[start] not in "aeiouAEIOU":
+                start += 1
+            while start < end and s[end] not in "aeiouAEIOU":
+                end -= 1
+            s[start], s[end] = s[end], s[start]
+            start += 1
+            end -= 1
         return "".join(s)
