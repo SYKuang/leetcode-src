@@ -41,14 +41,17 @@ class Solution(object):
         :type intervals: List[Interval]
         :rtype: List[Interval]
         """
-        l = len(intervals)
-        if l == 0:
-            return []
-        intervals.sort(key=lambda x: x.start)
-        ret = [intervals[0]]
-        for i in xrange(1, l):
-            if intervals[i].start > ret[-1].end:
-                ret.append(intervals[i])
+        res = []
+
+        def compare(a, b):
+            if a.start != b.start:
+                return a.start-b.start
             else:
-                ret[-1].end = max(ret[-1].end, intervals[i].end)
-        return ret
+                return b.end-a.end
+        intervals.sort(cmp=compare)
+        for inter in intervals:
+            if res and res[-1].end >= inter.start:
+                res[-1].end = max(res[-1].end, inter.end)
+            else:
+                res.append(inter)
+        return res
