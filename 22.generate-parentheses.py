@@ -35,6 +35,28 @@ class Solution(object):
         :type n: int
         :rtype: List[str]
         """
+        self.res = []
+        self.helper(n, n, "")
+        return self.res
+
+    def helper(self,rmnLeft, rmnRight, out):
+        if rmnLeft > rmnRight:
+            return
+        if rmnLeft == rmnRight == 0:
+            self.res.append(out)
+            return
+        if rmnLeft > 0:
+            self.helper(rmnLeft-1, rmnRight, out+"(")
+        if rmnRight > 0:
+            self.helper(rmnLeft, rmnRight-1, out+")")
+
+
+class Solution2(object):
+    def generateParenthesis(self, n):
+        """
+        :type n: int
+        :rtype: List[str]
+        """
         if n == 0:
             return [""]
         pre = self.generateParenthesis(n-1)
