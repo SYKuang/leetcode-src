@@ -38,17 +38,21 @@ class Solution(object):
         :type lists: List[ListNode]
         :rtype: ListNode
         """
-        res = []
-        while True:
-            mn = sys.maxint
-            index = -1
-            for i, node in enumerate(lists):
-                if node and node.val < mn:
-                    mn = node.val
-                    index = i
-            if index != -1:
-                res.append(mn)
-                lists[index] = lists[index].next
+        arr = []
+        nodes = []
+        for ll in lists:
+            while ll:
+                arr.append(ll.val)
+                nodes.append(ll)
+                ll = ll.next
+        arr.sort()
+        for i in xrange(len(arr)):
+            nodes[i].val = arr[i]
+            if i+1 < len(arr):
+                nodes[i].next = nodes[i+1]
             else:
-                break
-        return res
+                nodes[i].next = None
+        if len(arr):
+            return nodes[0]
+        else:
+            return None
