@@ -37,9 +37,7 @@ class Solution(object):
         for x in sets:
             if not x-1 in nums:
                 y = x+1
-                l = 1
                 while y in nums:
-                    l += 1
                     y += 1
-                res = max(res, l)
+                res = max(res, y-x)
         return res
