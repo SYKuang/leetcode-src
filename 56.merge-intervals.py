@@ -48,8 +48,7 @@ class Solution(object):
                 return a.start-b.start
             else:
                 return b.end-a.end
-        intervals.sort(cmp=compare)
-        for inter in intervals:
+        for inter in sorted(intervals, cmp=compare):
             if res and res[-1].end >= inter.start:
                 res[-1].end = max(res[-1].end, inter.end)
             else:
