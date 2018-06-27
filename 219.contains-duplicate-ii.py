@@ -50,9 +50,9 @@ class Solution(object):
         :type k: int
         :rtype: bool
         """
-        table = collections.defaultdict(list)
+        table = {}
         for i, n in enumerate(nums):
-            if len(table[n]) > 0 and (i-table[n][-1]) <= k:
+            if n in table and (i-table[n]) <= k:
                 return True
-            table[n].append(i)
+            table[n] = i
         return False
