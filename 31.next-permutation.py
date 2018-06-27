@@ -33,18 +33,19 @@ class Solution(object):
         :type nums: List[int]
         :rtype: void Do not return anything, modify nums in-place instead.
         """
-        i = len(nums)-2
-        while i >= 0:
+        find = False
+        for i in xrange(len(nums)-2, -1, -1):
             if nums[i] < nums[i+1]:
+                find = True
                 break
-            i -= 1
-        if i == -1:
-            nums[:]=nums[::-1]
-        else:
-            j = i+1
-            for k in xrange(j, len(nums)):
-                if nums[k] > nums[i] and nums[k] <= nums[j]:
-                    j = k
-            nums[i], nums[j] = nums[j], nums[i]
-            k=len(nums)
-            nums[i+1:] = nums[:i:-1]
+        if not find:
+            nums[:] = nums[::-1]
+            return
+        k = i+1
+        for j in xrange(i+1, len(nums)):
+            if nums[j] > nums[i] and nums[j] <= nums[k]:
+                k = j
+
+        nums[i], nums[k] = nums[k], nums[i]
+        nums[i+1:] = reversed(nums[i+1:])
+        return
