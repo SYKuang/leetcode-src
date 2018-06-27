@@ -52,7 +52,7 @@ class Solution(object):
             else:
                 roundup = False
                 digits[i] += 1
-            i-=1
+            i -= 1
         if roundup:
-            digits.insert(0,1)
+            digits.insert(0, 1)
         return digits
