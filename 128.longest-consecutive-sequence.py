@@ -35,9 +35,9 @@ class Solution(object):
         sets = set(nums)
         res = 0
         for x in sets:
-            if not x-1 in nums:
+            if not x-1 in sets:
                 y = x+1
-                while y in nums:
+                while y in sets:
                     y += 1
                 res = max(res, y-x)
         return res
