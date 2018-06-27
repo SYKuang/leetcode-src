@@ -66,12 +66,13 @@ class Solution(object):
         :rtype: bool
         """
         stack = []
-        pair = {"]": "[", "}": "{", ")": "("}
+        table = {")": "(", "}": "{", "]": "["}
         for c in s:
-            if c in ("(", "{", "["):
+            if c in "([{":
                 stack.append(c)
             else:
-                if not stack or stack[-1] != pair[c]:
+                if not stack or stack[-1] != table[c]:
                     return False
-                stack.pop()
-        return True if not stack else False
+                else:
+                    stack.pop()
+        return False if stack else True
