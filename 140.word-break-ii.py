@@ -62,33 +62,27 @@
 
 
 class Solution(object):
+    def __init__(self):
+        self.table = {}
+
     def wordBreak(self, s, wordDict):
         """
         :type s: str
         :type wordDict: List[str]
         :rtype: List[str]
         """
-        totalword = set([c for w in wordDict for c in w])
-        for c in s:
-            if c not in totalword:
-                return []
-        self.table = {}
-        return self.helper(s, wordDict)
-
-    def helper(self, s, wordDict):
-        if s == "":
-            return []
         if s in self.table:
             return self.table[s]
-        ret = []
-        for w in wordDict:
-            if s[:len(w)] == w:
-                rest = s[len(w):]
-                if rest == "":
-                    ret.append(w)
+        wd = set(wordDict)
+        res = []
+        for i in xrange(1, len(s)+1):
+            if s[:i] in wd:
+                if i == len(s):
+                    res.append(s[:i])
+                    break
                 else:
-                    tmp = self.helper(s[len(w):], wordDict)
+                    tmp = self.wordBreak(s[i:], wordDict)
                     for t in tmp:
-                        ret.append(s[:len(w)]+" "+t)
-        self.table[s] = ret
-        return ret
+                        res.append(s[:i]+" " + t)
+        self.table[s] = res
+        return res
