@@ -34,19 +34,12 @@ class Solution(object):
         """
         sets = set(nums)
         res = 0
-        while sets:
-            keys = list(sets)
-            sets.remove(keys[0])
-            k = keys[0]+1
-            lens = 1
-            while k in sets:
-                lens += 1
-                sets.remove(k)
-                k += 1
-            k = keys[0]-1
-            while k in sets:
-                lens += 1
-                sets.remove(k)
-                k -= 1
-            res = max(res, lens)
+        for x in sets:
+            if not x-1 in nums:
+                y = x+1
+                l = 1
+                while y in nums:
+                    l += 1
+                    y += 1
+                res = max(res, l)
         return res
