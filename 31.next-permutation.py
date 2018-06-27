@@ -41,11 +41,10 @@ class Solution(object):
         if not find:
             nums[:] = nums[::-1]
             return
-        k = i+1
-        for j in xrange(i+1, len(nums)):
-            if nums[j] > nums[i] and nums[j] <= nums[k]:
-                k = j
+        for j in xrange(len(nums)-1,i,-1):
+            if nums[j] > nums[i]:
+                break
 
-        nums[i], nums[k] = nums[k], nums[i]
+        nums[i], nums[j] = nums[j], nums[i]
         nums[i+1:] = reversed(nums[i+1:])
         return
