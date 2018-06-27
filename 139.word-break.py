@@ -51,6 +51,24 @@
 
 
 class Solution(object):
+    def wordBreak(self, s, wordDict):
+        """
+        :type s: str
+        :type wordDict: List[str]
+        :rtype: bool
+        """
+        dp = [False]*(len(s)+1)
+        dp[0] = True
+        wd = set(wordDict)
+        for i in xrange(1, len(s)+1):
+            for j in xrange(i):
+                if dp[j] and s[j:i] in wd:
+                    dp[i] = True
+                    break
+        return dp[len(s)]
+
+
+class Solution2(object):
     def __init__(self):
         self.table = {}
 
