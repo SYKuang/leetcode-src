@@ -29,39 +29,19 @@
 #
 
 
-class Solution2(object):
-    def generateParenthesis(self, n):
-        """
-        :type n: int
-        :rtype: List[str]
-        """
-        dp = [[] for _ in xrange(n+1)]
-        dp[0] = [""]
-        for i in xrange(1, n+1):
-            for j in xrange(i):
-                for x in dp[j]:
-                    for y in dp[i-j-1]:
-                        dp[i].append("("+x+")"+y)
-        return dp[n]
-
-
 class Solution(object):
     def generateParenthesis(self, n):
         """
         :type n: int
         :rtype: List[str]
         """
-        self.res = []
-        self.helper(n, n, "")
-        return self.res
-
-    def helper(self, left, right, res):
-        if left == right == 0:
-            self.res.append(res)
-            return
-        if left > right:
-            return
-        if left > 0:
-            self.helper(left-1, right, res+"(")
-        if right > 0:
-            self.helper(left, right-1, res+")")
+        if n == 0:
+            return [""]
+        pre = self.generateParenthesis(n-1)
+        res = set()
+        for p in pre:
+            for i, c in enumerate(p):
+                if c == "(":
+                    res.add(p[:i+1]+"()"+p[i+1:])
+            res.add("()"+p)
+        return list(res)
