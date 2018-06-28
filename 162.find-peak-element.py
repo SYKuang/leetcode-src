@@ -53,7 +53,7 @@ class Solution(object):
         if len(nums) == 1:
             return 0
         start = 0
-        end = len(nums)
+        end = len(nums)-1
         while start < end:
             mid = (start+end)//2
             if mid < len(nums)-1 and nums[mid] < nums[mid+1]:
