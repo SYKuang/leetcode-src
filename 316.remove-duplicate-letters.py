@@ -37,16 +37,14 @@ class Solution(object):
         :type s: str
         :rtype: str
         """
-        table = collections.defaultdict(int)
-        for c in s:
-            table[c] += 1
+        counter = collections.Counter(s)
         res = []
         visited = set()
         for c in s:
-            table[c] -= 1
+            counter[c] -= 1
             if c in visited:
                 continue
-            while res and c < res[-1] and table[res[-1]]:
+            while res and res[-1] > c and counter[res[-1]] > 0:
                 visited.remove(res[-1])
                 res.pop()
             res.append(c)
