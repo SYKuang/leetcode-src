@@ -64,42 +64,16 @@ class Solution(object):
         :type stones: List[int]
         :rtype: bool
         """
-        def helper(current, k):
-            if current == stones[-1]:
-                return True
-            for i in (k+1, k, k-1):
-                if current+i > current and current+i in stones:
-                    if helper(current+i, i):
-                        return True
-            return False
-        if stones[1] != 1:
-            return False
-        # maximum move distance is
-        # 1+2+...+len(stones)-1=((1+len(stones)-1)*len(stones))/2
-        if stones[-1] > (len(stones) * (len(stones) - 1) / 2):
-            return False
-        return helper(1, 1)
-
-
-""" Beat 60%
-        if len(stones) < 2:
-            return True
-        if stones[1] != 1:
-            return False
-        table = {}
-        for i, s in enumerate(stones):
-            table[s] = i
-        dp = [0 for _ in xrange(len(stones))]
-        jump = [[] for _ in xrange(len(stones))]
-        jump[0] = [1]
+        dp = [0]*(len(stones))
+        m = collections.defaultdict(set)
+        m[0].add(0)
         k = 0
         for i in xrange(1, len(stones)):
             while dp[k]+1 < stones[i]-stones[k]:
                 k += 1
             for j in xrange(k, i):
                 dist = stones[i]-stones[j]
-                if dist-1 in jump[j] or dist in jump[j] or dist+1 in jump[j]:
-                    jump[i].append(dist)
+                if dist in m[j] or dist-1 in m[j] or dist+1 in m[j]:
+                    m[i].add(dist)
                     dp[i] = max(dp[i], dist)
         return dp[-1] != 0
-"""
